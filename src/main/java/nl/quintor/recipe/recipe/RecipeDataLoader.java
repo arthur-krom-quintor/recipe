@@ -1,25 +1,42 @@
 package nl.quintor.recipe.recipe;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.quintor.recipe.ingredient.Ingredient;
+import nl.quintor.recipe.ingredient.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /**
  * Loads initial recipe data
  */
 @Slf4j
 @Component
+@Order(2)
 public class RecipeDataLoader implements CommandLineRunner {
     private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
     @Autowired
-    public RecipeDataLoader(RecipeService recipeService) {
+    public RecipeDataLoader(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        var ingredients = ingredientService.readAllIngredients();
+        var eggs = ingredients.stream().filter(i -> i.getName().equals("Egg")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find eggs"));
+        var ham = ingredients.stream().filter(i -> i.getName().equals("Ham")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find hams"));
+        var cheese = ingredients.stream().filter(i -> i.getName().equals("Cheese")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find cheese"));
+        var flour = ingredients.stream().filter(i -> i.getName().equals("Flour")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find flour"));
+        var milk = ingredients.stream().filter(i -> i.getName().equals("Milk")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find milk"));
+        var pancake = new Recipe(null, 6, ".1 add flour, eggs, and milk in a bowl. .2 pour mixture in pan", Set.of(eggs, milk));
+        var friedEgg = new Recipe(null, 1, ".1 put butter in pan. 2. let it melt. 3. Fry the eggs. .4 add cheese and ham ", Set.of(ham, cheese,eggs));
+        recipeService.createRecipe(pancake);
+        recipeService.createRecipe(friedEgg);
     }
 }
