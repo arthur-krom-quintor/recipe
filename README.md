@@ -24,3 +24,11 @@ Recipe is a REST (-like) API that lets people manage their recipes.
 After running the application, the API documentation can be found at http://localhost:8080/swagger.
 
 ## Architectural decisions
+
+### Project structure
+
+### Models
+
+#### Recipe
+
+#### Ingredient

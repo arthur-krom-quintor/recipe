@@ -1,6 +1,7 @@
 package nl.quintor.recipe.recipe;
 
-import nl.quintor.recipe.exception.DuplicateException;
+import jakarta.validation.Valid;
+import nl.quintor.recipe.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,16 @@ public class RecipeService {
      * @return
      */
     public Recipe createRecipe(Recipe recipe){
-        var found = recipeRepository.findByName(recipe.getName());
-        if(found.isPresent()){
-            throw new DuplicateException(DuplicateException.UNIQUE_RECIPE_NAME);
-        }
+        return recipeRepository.save(recipe);
+    }
+
+
+    /**
+     * Updates the recipe or creates a new one if it doesn't exist yet
+     * @param recipe
+     * @return
+     */
+    public Recipe updateRecipe(Recipe recipe){
         return recipeRepository.save(recipe);
     }
 
@@ -39,6 +46,24 @@ public class RecipeService {
     public Set<Recipe> readAllRecipes(){
         var result = new HashSet<Recipe>();
         recipeRepository.findAll().forEach(result::add);
+        return result;
+    }
+
+    /**
+     * Deletes the recipe (without deleting the ingredients)
+     * @param id
+     */
+    public void deleteRecipe(Integer id){
+        recipeRepository.deleteById(id);
+    }
+
+    /**
+     * Finds a recipe by id
+     * @param id, the id of the recipe
+     * @return The recipe, or throw a ResourceNotFoundException
+     */
+    public Recipe readRecipeById(Integer id){
+        var result = recipeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ResourceNotFoundException.RECIPE_NOT_FOUND));
         return result;
     }
 }
