@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 public class RecipeCreateRequest {
-    @NotBlank(message = "A name is required and cant consist solely whitespace.")
+    @NotBlank(message = "A name is required and cant consist solely of whitespace.")
     private String name;
 
     @NotNull(message = "The amount of servings is required.")

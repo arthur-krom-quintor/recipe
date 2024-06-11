@@ -1,10 +1,10 @@
 package nl.quintor.recipe.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.quintor.recipe.exception.ErrorResponse;
 import nl.quintor.recipe.ingredient.Ingredient;
 import nl.quintor.recipe.ingredient.IngredientService;
 import nl.quintor.recipe.ingredient.dto.IngredientMapper;
-import nl.quintor.recipe.ingredient.dto.IngredientResponse;
 import nl.quintor.recipe.recipe.Recipe;
 import nl.quintor.recipe.recipe.RecipeController;
 import nl.quintor.recipe.recipe.RecipeService;
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -101,7 +100,7 @@ class RecipeControllerTest {
     }
 
     @Test
-    void createRecipe() throws Exception {
+    void createValidRecipeShouldReturnRecipeWithStatusIsCreated() throws Exception {
         var recipe = recipes.getFirst();
         var recipeWithoutId = new Recipe(null, recipe.getName(), recipe.getServings(), recipe.getInstructions(), recipe.getIngredients());
         var recipeCreateRequest = new RecipeCreateRequest(recipe.getName(), recipe.getServings(), recipe.getInstructions(),
@@ -114,11 +113,28 @@ class RecipeControllerTest {
         when(recipeService.createRecipe(recipeWithoutId)).thenReturn(recipe);
         when(recipeMapper.recipeToRecipeResponse(recipe)).thenReturn(recipeResponse);
 
-        String recipeCreateRequestString = objectMapper.writeValueAsString(recipeCreateRequest);
+        var recipeCreateRequestString = objectMapper.writeValueAsString(recipeCreateRequest);
 
         mockMvc.perform(post("/recipe").content(recipeCreateRequestString).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().json(objectMapper.writeValueAsString(recipeResponse)))
+                .andReturn();
+    }
+
+    @Test
+    void createRecipeWithoutNameShouldReturnError() throws Exception {
+        var recipeCreateRequest = new RecipeCreateRequest();
+        recipeCreateRequest.setIngredients(Set.of(1));
+        recipeCreateRequest.setInstructions("Bla");
+        recipeCreateRequest.setServings(1);
+
+        var recipeCreateRequestString = objectMapper.writeValueAsString(recipeCreateRequest);
+        var path = "/recipe";
+        var expectedErrorResponse = new ErrorResponse(path, "A name is required and cant consist solely of whitespace.");
+
+        mockMvc.perform(post(path).content(recipeCreateRequestString).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedErrorResponse)))
                 .andReturn();
     }
 }
