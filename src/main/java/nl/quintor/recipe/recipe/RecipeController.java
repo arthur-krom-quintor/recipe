@@ -34,23 +34,13 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+
     /**
-     * Fetches all available recipes
+     * Fetches all available recipes based on optional filters
      * @return a ResponseEntity containing a set containing all available recipes
      */
     @GetMapping
-    public ResponseEntity<Set<RecipeResponse>> readAllRecipes(){
-        var recipeSet = recipeService.readAllRecipes();
-        var recipeResponseSet = recipeMapper.recipeSetToRecipeResponseSet(recipeSet);
-        return new ResponseEntity<>(recipeResponseSet, HttpStatus.OK);
-    }
-
-    /**
-     * Fetches all available recipes based on an optional filter
-     * @return a ResponseEntity containing a set containing all available recipes
-     */
-    @GetMapping("/filtered")
-    public ResponseEntity<Set<RecipeResponse>> readAllRecipesByFilter(@RequestParam(required = false) Optional<Integer> servingsFilter,
+    public ResponseEntity<Set<RecipeResponse>> readAllRecipes(@RequestParam(required = false) Optional<Integer> servingsFilter,
                                                                       @RequestParam(required = false) Optional<Boolean> vegetarianFilter,
                                                                       @RequestParam(required = false) Optional<String> instructionFilter,
                                                                       @RequestParam(required = false) Optional<List<String>> includesFilter,

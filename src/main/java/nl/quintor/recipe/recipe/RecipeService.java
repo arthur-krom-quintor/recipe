@@ -73,14 +73,13 @@ public class RecipeService {
     public Set<Recipe> readAllRecipesFilteredByStreams(Optional<Integer> servingsFilter, Optional<Boolean> vegetarianFilter,
                                                        Optional<String> instructionFilter, Optional<List<String>> includesFilter,
                                                        Optional<List<String>> excludesFilter) {
-        var result = new HashSet<Recipe>();
-        var current = (List<Recipe>) recipeRepository.findAll();
+        var current = readAllRecipes();
 
         if (servingsFilter.isPresent()) {
             current = current
                     .stream()
                     .filter(r -> Objects.equals(r.getServings(), servingsFilter.get()))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
         }
 
         if (vegetarianFilter.isPresent()) {
@@ -88,12 +87,12 @@ public class RecipeService {
                 current = current
                         .stream()
                         .filter(r -> r.getIngredients().stream().allMatch(Ingredient::getIsVegetarian))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
             } else {
                 current = current
                         .stream().
                         filter(r -> r.getIngredients().stream().anyMatch(i -> !i.getIsVegetarian()))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
             }
         }
 
@@ -101,7 +100,7 @@ public class RecipeService {
             current = current
                     .stream()
                     .filter(r -> r.getInstructions().contains(instructionFilter.get()))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
         }
 
         if (includesFilter.isPresent()) {
@@ -111,7 +110,7 @@ public class RecipeService {
                         .filter(r -> r.getIngredients()
                                 .stream()
                                 .anyMatch(i -> i.getName().equalsIgnoreCase(include)))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
             }
         }
 
@@ -122,14 +121,10 @@ public class RecipeService {
                         .filter(r -> r.getIngredients()
                                 .stream()
                                 .noneMatch(i -> i.getName().equalsIgnoreCase(exclude)))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
             }
         }
-
-
-        result.addAll(current);
-
-        return result;
+        return current;
     }
 
 
