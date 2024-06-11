@@ -1,7 +1,6 @@
 package nl.quintor.recipe.recipe;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.quintor.recipe.ingredient.Ingredient;
 import nl.quintor.recipe.ingredient.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,8 +33,8 @@ public class RecipeDataLoader implements CommandLineRunner {
         var cheese = ingredients.stream().filter(i -> i.getName().equals("Cheese")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find cheese"));
         var flour = ingredients.stream().filter(i -> i.getName().equals("Flour")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find flour"));
         var milk = ingredients.stream().filter(i -> i.getName().equals("Milk")).findFirst().orElseThrow(() -> new RuntimeException("Couldnt find milk"));
-        var pancake = new Recipe(null, 6, ".1 add flour, eggs, and milk in a bowl. .2 pour mixture in pan", Set.of(eggs, milk));
-        var friedEgg = new Recipe(null, 1, ".1 put butter in pan. 2. let it melt. 3. Fry the eggs. .4 add cheese and ham ", Set.of(ham, cheese,eggs));
+        var pancake = new Recipe(null, "Pancake", 6, ".1 add flour, eggs, and milk in a bowl. .2 pour mixture in pan", Set.of(eggs, milk));
+        var friedEgg = new Recipe(null, "Fried egg", 1, ".1 put butter in pan. 2. let it melt. 3. Fry the eggs. .4 add cheese and ham ", Set.of(ham, cheese,eggs));
         recipeService.createRecipe(pancake);
         recipeService.createRecipe(friedEgg);
     }

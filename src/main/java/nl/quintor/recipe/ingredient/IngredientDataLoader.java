@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 
+/**
+ * This class is used to load some initial data regarding ingredients into the database.
+ */
 @Slf4j
 @Component
 @Order(1)

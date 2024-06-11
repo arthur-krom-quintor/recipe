@@ -21,10 +21,13 @@ public class IngredientService {
 
     public Set<Ingredient> readAllIngredients() {
         var result = new HashSet<Ingredient>();
-        ingredientRepository.findAll().forEach(i ->{
-            result.add(i);
-        });
-
+        var found = ingredientRepository.findAll();
+        found.forEach(result::add);
         return result;
+    }
+
+    public Ingredient readIngredientById(Integer id){
+        var optionalIngredient =  ingredientRepository.findById(id);
+        return optionalIngredient.orElseThrow(() -> new RuntimeException("Couldnt find ingredient"));
     }
 }

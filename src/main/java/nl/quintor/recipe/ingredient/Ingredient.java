@@ -10,7 +10,7 @@ import nl.quintor.recipe.recipe.Recipe;
 import java.util.Set;
 
 /**
- * Represents an ingredient
+ * Represents an ingredient.
  */
 @Entity
 @AllArgsConstructor
@@ -20,7 +20,7 @@ import java.util.Set;
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
     private String name;

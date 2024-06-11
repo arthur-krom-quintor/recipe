@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.quintor.recipe.ingredient.Ingredient;
-import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
@@ -21,11 +20,15 @@ import java.util.Set;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+    private String name;
     private Integer servings;
     private String instructions;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "recipe_contains_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    @JoinTable(name = "recipe_contains_ingredient",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"recipe_id", "ingredient_id"}))
     private Set<Ingredient> ingredients;
 }
