@@ -1,6 +1,7 @@
 package nl.quintor.recipe.recipe;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import nl.quintor.recipe.recipe.dto.RecipeCreateRequest;
 import nl.quintor.recipe.recipe.dto.RecipeMapper;
 import nl.quintor.recipe.recipe.dto.RecipeResponse;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  */
 @RequestMapping("/recipe")
 @RestController
+@Slf4j
 public class RecipeController {
 
     private final RecipeMapper recipeMapper;
@@ -32,13 +34,13 @@ public class RecipeController {
 
     /**
      * Fetches all available recipes
-     * @return a set containing all available recipes
+     * @return a ResponseEntity containing a set containing all available recipes
      */
     @GetMapping
     public ResponseEntity<Set<RecipeResponse>> readAllRecipes(){
         var recipeSet = recipeService.readAllRecipes();
-        var response = recipeSet.stream().map(recipeMapper::recipeToRecipeResponse).collect(Collectors.toSet());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        var recipeResponseSet = recipeMapper.recipeSetToRecipeResponseSet(recipeSet);
+        return new ResponseEntity<>(recipeResponseSet, HttpStatus.OK);
     }
 
     /**

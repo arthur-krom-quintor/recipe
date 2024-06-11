@@ -7,6 +7,8 @@ import nl.quintor.recipe.recipe.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -51,12 +53,16 @@ public class RecipeMapper {
         recipeResponse.setServings(recipe.getServings());
         recipeResponse.setInstructions(recipe.getInstructions());
 
-        var ingredients = recipe.getIngredients().stream().map(ingredientMapper::ingredientToIngredientResponse).collect(Collectors.toSet());
+        var ingredients = ingredientMapper.ingredientSetToIngredientResponseSet(recipe.getIngredients());
         recipeResponse.setIngredients(ingredients);
 
         var isVegetarian = recipe.getIngredients().stream().allMatch(Ingredient::getIsVegetarian);
         recipeResponse.setIsVegetarian(isVegetarian);
 
         return recipeResponse;
+    }
+
+    public Set<RecipeResponse> recipeSetToRecipeResponseSet(Set<Recipe> recipes){
+        return recipes.stream().map(this::recipeToRecipeResponse).collect(Collectors.toSet());
     }
 }
