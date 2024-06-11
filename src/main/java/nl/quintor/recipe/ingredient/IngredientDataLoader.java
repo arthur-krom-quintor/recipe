@@ -11,7 +11,6 @@ import java.util.HashSet;
 /**
  * This class is used to load some initial data regarding ingredients into the database.
  */
-@Slf4j
 @Component
 @Order(1)
 public class IngredientDataLoader implements CommandLineRunner {
@@ -48,8 +47,6 @@ public class IngredientDataLoader implements CommandLineRunner {
         ingredients.add(new Ingredient(null, "Cheese", true, null ));
         ingredients.add(new Ingredient(null, "Butter", true, null ));
 
-        ingredients.forEach(i ->{
-            ingredientService.createIngredient(i);
-        });
+        ingredients.forEach(ingredientService::createIngredient);
     }
 }

@@ -1,5 +1,6 @@
 package nl.quintor.recipe.recipe;
 
+import nl.quintor.recipe.exception.DuplicateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class RecipeService {
      * @return
      */
     public Recipe createRecipe(Recipe recipe){
+        var found = recipeRepository.findByName(recipe.getName());
+        if(found.isPresent()){
+            throw new DuplicateException(DuplicateException.UNIQUE_RECIPE_NAME);
+        }
         return recipeRepository.save(recipe);
     }
 

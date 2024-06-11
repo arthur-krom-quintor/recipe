@@ -1,10 +1,7 @@
 package nl.quintor.recipe.ingredient;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import nl.quintor.recipe.recipe.Recipe;
 
 import java.util.Set;

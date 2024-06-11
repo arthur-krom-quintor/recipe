@@ -12,7 +12,6 @@ import java.util.Set;
 /**
  * Loads initial recipe data
  */
-@Slf4j
 @Component
 @Order(2)
 public class RecipeDataLoader implements CommandLineRunner {

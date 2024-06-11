@@ -1,5 +1,6 @@
 package nl.quintor.recipe.ingredient;
 
+import nl.quintor.recipe.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,6 @@ public class IngredientService {
 
     public Ingredient readIngredientById(Integer id){
         var optionalIngredient =  ingredientRepository.findById(id);
-        return optionalIngredient.orElseThrow(() -> new RuntimeException("Couldnt find ingredient"));
+        return optionalIngredient.orElseThrow(() -> new ResourceNotFoundException(ResourceNotFoundException.INGREDIENT_NOT_FOUND));
     }
 }
