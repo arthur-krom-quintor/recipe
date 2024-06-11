@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,21 @@ public class RecipeController {
     @GetMapping
     public ResponseEntity<Set<RecipeResponse>> readAllRecipes(){
         var recipeSet = recipeService.readAllRecipes();
+        var recipeResponseSet = recipeMapper.recipeSetToRecipeResponseSet(recipeSet);
+        return new ResponseEntity<>(recipeResponseSet, HttpStatus.OK);
+    }
+
+    /**
+     * Fetches all available recipes based on an optional filter
+     * @return a ResponseEntity containing a set containing all available recipes
+     */
+    @GetMapping("/filtered")
+    public ResponseEntity<Set<RecipeResponse>> readAllRecipesByFilter(@RequestParam(required = false) Optional<Integer> servingsFilter,
+                                                                      @RequestParam(required = false) Optional<Boolean> vegetarianFilter,
+                                                                      @RequestParam(required = false) Optional<String> instructionFilter,
+                                                                      @RequestParam(required = false) Optional<List<String>> includesFilter,
+                                                                      @RequestParam(required = false) Optional<List<String>> excludesFilter){
+        var recipeSet = recipeService.readAllRecipesFilteredByStreams(servingsFilter, vegetarianFilter, instructionFilter, includesFilter, excludesFilter);
         var recipeResponseSet = recipeMapper.recipeSetToRecipeResponseSet(recipeSet);
         return new ResponseEntity<>(recipeResponseSet, HttpStatus.OK);
     }
