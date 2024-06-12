@@ -25,27 +25,27 @@ public class IngredientDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var ingredients = new HashSet<Ingredient>();
-        ingredients.add(new Ingredient(null, "Milk", true, null ));
-        ingredients.add(new Ingredient(null, "Nuts", true, null ));
-        ingredients.add(new Ingredient(null, "Beef", false, null ));
-        ingredients.add(new Ingredient(null, "Pork", false, null ));
-        ingredients.add(new Ingredient(null, "Chicken", false, null ));
-        ingredients.add(new Ingredient(null, "Fish", false, null ));
-        ingredients.add(new Ingredient(null, "Flour", true, null ));
-        ingredients.add(new Ingredient(null, "Garlic", true, null ));
-        ingredients.add(new Ingredient(null, "Tomato", true, null ));
-        ingredients.add(new Ingredient(null, "Salt", true, null ));
-        ingredients.add(new Ingredient(null, "Pepper", true, null ));
-        ingredients.add(new Ingredient(null, "Rice", true, null ));
-        ingredients.add(new Ingredient(null, "Egg", true, null ));
-        ingredients.add(new Ingredient(null, "Broccoli", true, null ));
-        ingredients.add(new Ingredient(null, "Cauliflower", true, null ));
-        ingredients.add(new Ingredient(null, "Yeast", true, null ));
-        ingredients.add(new Ingredient(null, "Sugar", true, null ));
-        ingredients.add(new Ingredient(null, "Baking powder", true, null ));
-        ingredients.add(new Ingredient(null, "Ham", false, null ));
-        ingredients.add(new Ingredient(null, "Cheese", true, null ));
-        ingredients.add(new Ingredient(null, "Butter", true, null ));
+        ingredients.add(new Ingredient(null, "Milk", true ));
+        ingredients.add(new Ingredient(null, "Nuts", true ));
+        ingredients.add(new Ingredient(null, "Beef", false ));
+        ingredients.add(new Ingredient(null, "Pork", false ));
+        ingredients.add(new Ingredient(null, "Chicken", false ));
+        ingredients.add(new Ingredient(null, "Fish", false ));
+        ingredients.add(new Ingredient(null, "Flour", true ));
+        ingredients.add(new Ingredient(null, "Garlic", true ));
+        ingredients.add(new Ingredient(null, "Tomato", true ));
+        ingredients.add(new Ingredient(null, "Salt", true ));
+        ingredients.add(new Ingredient(null, "Pepper", true ));
+        ingredients.add(new Ingredient(null, "Rice", true ));
+        ingredients.add(new Ingredient(null, "Egg", true ));
+        ingredients.add(new Ingredient(null, "Broccoli", true ));
+        ingredients.add(new Ingredient(null, "Cauliflower", true ));
+        ingredients.add(new Ingredient(null, "Yeast", true ));
+        ingredients.add(new Ingredient(null, "Sugar", true ));
+        ingredients.add(new Ingredient(null, "Baking powder", true ));
+        ingredients.add(new Ingredient(null, "Ham", false ));
+        ingredients.add(new Ingredient(null, "Cheese", true ));
+        ingredients.add(new Ingredient(null, "Butter", true ));
 
         ingredients.forEach(ingredientService::createIngredient);
     }

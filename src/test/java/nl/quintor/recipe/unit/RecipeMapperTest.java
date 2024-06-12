@@ -36,8 +36,8 @@ class RecipeMapperTest {
         var servings = 1;
         var instructions = "Magic";
 
-        var beef = new Ingredient(1, "beef", false, null);
-        var rice = new Ingredient(2, "rice", true, null);
+        var beef = new Ingredient(1, "beef", false);
+        var rice = new Ingredient(2, "rice", true);
         var ingredients = Set.of(beef, rice);
         var ingredientIds = ingredients.stream().map(i -> i.getId()).collect(Collectors.toSet());
 

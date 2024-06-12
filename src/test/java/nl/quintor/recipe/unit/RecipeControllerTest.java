@@ -59,13 +59,13 @@ class RecipeControllerTest {
 
     @BeforeEach
     void setUp() {
-        var eggs = new Ingredient(1, "eggs", true, null);
-        var milk = new Ingredient(2, "milk", true, null);
-        var flour = new Ingredient(3, "flour", true, null);
-        var beef = new Ingredient(4, "beef", false, null);
-        var ham = new Ingredient(5, "ham", false, null);
-        var rice = new Ingredient(6, "rice", true, null);
-        var broccoli = new Ingredient(7, "broccoli", true, null);
+        var eggs = new Ingredient(1, "eggs", true);
+        var milk = new Ingredient(2, "milk", true);
+        var flour = new Ingredient(3, "flour", true);
+        var beef = new Ingredient(4, "beef", false);
+        var ham = new Ingredient(5, "ham", false);
+        var rice = new Ingredient(6, "rice", true);
+        var broccoli = new Ingredient(7, "broccoli", true);
 
         var special1Ingredients = Set.of(eggs, ham);
         var special2Ingredients = Set.of(rice, broccoli, beef);

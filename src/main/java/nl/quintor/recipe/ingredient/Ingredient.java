@@ -22,7 +22,7 @@ public class Ingredient {
     @Column(columnDefinition = "TINYINT")
     private Boolean isVegetarian;
 
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Recipe> recipes;
+//    @EqualsAndHashCode.Exclude
+//    @ManyToMany(mappedBy = "ingredients")
+//    private Set<Recipe> recipes;
 }
