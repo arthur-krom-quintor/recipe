@@ -41,15 +41,6 @@ public class RecipeIntegrationTest {
     @Autowired
     private IngredientService ingredientService;
 
-    @BeforeEach
-    void setUp() {
-//        var ingredients = ingredientService.readAllIngredients();
-//        var ham = ingredients.stream().filter(i -> i.getName().equalsIgnoreCase("ham")).findFirst().get();
-//        var cheese = ingredients.stream().filter(i -> i.getName().equalsIgnoreCase("cheese")).findFirst().get();
-//        var special1 = new Recipe(null, "special 1", 12, "mix and bake", Set.of(ham, cheese));
-//        recipeService.createRecipe(special1);
-    }
-
     @Test
     public void getRecipeById() {
         webTestClient.get().uri("/recipe/1").exchange().expectStatus().isOk();

@@ -22,9 +22,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -87,7 +89,13 @@ class RecipeControllerTest {
         var recipeHashSetToReturn = new HashSet<>(recipes);
         var recipeResponseHashSetToReturn = new HashSet<>(recipeResponses);
 
-        when(recipeService.readAllRecipes()).thenReturn(recipeHashSetToReturn);
+        Optional<Integer> servingsFilter = Optional.empty();
+        Optional<Boolean> vegetarianFilter = Optional.empty();
+        Optional<String> instructionFilter = Optional.empty();
+        Optional<List<String>> includesFilter = Optional.empty();
+        Optional<List<String>> excludesFilter = Optional.empty();
+
+        when(recipeService.readAllRecipesFilteredByStreams(servingsFilter, vegetarianFilter, instructionFilter, includesFilter, excludesFilter)).thenReturn(recipeHashSetToReturn);
         when(recipeMapper.recipeSetToRecipeResponseSet(recipeHashSetToReturn)).thenReturn(recipeResponseHashSetToReturn);
 
         var expectedResponse = recipeResponses;
@@ -97,6 +105,8 @@ class RecipeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedResponseString))
                 .andReturn();
+
+        verify(recipeMapper).recipeSetToRecipeResponseSet(recipeHashSetToReturn);
     }
 
     @Test
