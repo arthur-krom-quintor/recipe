@@ -1,10 +1,9 @@
 package nl.quintor.recipe.recipe;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import nl.quintor.recipe.ingredient.Ingredient;
 
 import java.util.Set;

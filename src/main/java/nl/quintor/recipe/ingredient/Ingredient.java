@@ -1,10 +1,9 @@
 package nl.quintor.recipe.ingredient;
 
 import jakarta.persistence.*;
-import lombok.*;
-import nl.quintor.recipe.recipe.Recipe;
-
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents an ingredient.
@@ -21,8 +20,4 @@ public class Ingredient {
 
     @Column(columnDefinition = "TINYINT")
     private Boolean isVegetarian;
-
-//    @EqualsAndHashCode.Exclude
-//    @ManyToMany(mappedBy = "ingredients")
-//    private Set<Recipe> recipes;
 }

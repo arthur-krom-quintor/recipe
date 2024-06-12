@@ -1,6 +1,8 @@
 package nl.quintor.recipe.recipe.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import nl.quintor.recipe.ingredient.dto.IngredientResponse;
 
 import java.util.Set;

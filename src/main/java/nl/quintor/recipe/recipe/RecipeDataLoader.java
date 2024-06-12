@@ -1,6 +1,5 @@
 package nl.quintor.recipe.recipe;
 
-import lombok.extern.slf4j.Slf4j;
 import nl.quintor.recipe.ingredient.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -1,9 +1,5 @@
 package nl.quintor.recipe.recipe;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 import nl.quintor.recipe.exception.ResourceNotFoundException;
 import nl.quintor.recipe.ingredient.Ingredient;

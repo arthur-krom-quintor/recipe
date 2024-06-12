@@ -3,12 +3,10 @@ package nl.quintor.recipe.integration;
 import lombok.extern.slf4j.Slf4j;
 import nl.quintor.recipe.ingredient.Ingredient;
 import nl.quintor.recipe.ingredient.IngredientService;
-import nl.quintor.recipe.ingredient.dto.IngredientResponse;
 import nl.quintor.recipe.recipe.Recipe;
 import nl.quintor.recipe.recipe.RecipeRepository;
 import nl.quintor.recipe.recipe.RecipeService;
 import nl.quintor.recipe.recipe.dto.RecipeCreateRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +19,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
-import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
