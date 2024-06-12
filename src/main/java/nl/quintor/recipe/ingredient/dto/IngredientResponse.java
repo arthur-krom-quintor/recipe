@@ -1,17 +1,13 @@
 package nl.quintor.recipe.ingredient.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * API representation of an ingredient.
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class IngredientResponse {
     private Integer id;
     private String name;

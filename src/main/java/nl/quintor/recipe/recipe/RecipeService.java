@@ -20,12 +20,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final EntityManager entityManager;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository, EntityManager entityManager) {
+    public RecipeService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.entityManager = entityManager;
     }
 
     /**

@@ -12,8 +12,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +22,7 @@ public class Ingredient {
     @Column(columnDefinition = "TINYINT")
     private Boolean isVegetarian;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "ingredients")
     private Set<Recipe> recipes;
 }
